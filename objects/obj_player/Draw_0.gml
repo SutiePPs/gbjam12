@@ -1,5 +1,9 @@
 /// @description draw player and list
 
+if debugmode sprite_index = mask_index;
+
+if !playermoving image_index = 0;
+
 draw_self();
 
 // list scroll animation

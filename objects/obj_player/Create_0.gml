@@ -1,6 +1,9 @@
 /// @description set up variables
 
+debugmode = false;
+
 movespeed = 1;
+playermoving = false;
 
 listopen = false;
 listscroll = 0;
@@ -13,6 +16,7 @@ screentransmovespeedh = 0.45;
 screentranspeedv = 4;
 screentransmovespeedv = 0.5;
 
+controlarray = [0];
 
 
 // leave only the main layer active
