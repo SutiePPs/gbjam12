@@ -4,7 +4,7 @@ if debugmode sprite_index = mask_index;
 
 if !playermoving image_index = 0;
 
-draw_self();
+draw_sprite(sprite_index,image_index,floor(x),floor(y));
 
 // list scroll animation
 if listopen

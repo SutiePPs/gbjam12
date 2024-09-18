@@ -44,7 +44,5 @@ global.itembread = false;
 global.itemfishe = false;
 global.itemmelk = false;
 
-shader_set(sh_gb);
-
 // go to next room when done
 room = room_next(0);

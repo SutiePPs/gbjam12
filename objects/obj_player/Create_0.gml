@@ -16,6 +16,13 @@ screentransmovespeedh = 0.45;
 screentranspeedv = 4;
 screentransmovespeedv = 0.5;
 
+areatrans = false;
+areatranstimer = 0;
+areatranstimermark = 4;
+areatranspalette = 0;
+areatransx = 0;
+areatransy = 0;
+
 controlarray = [0];
 
 
