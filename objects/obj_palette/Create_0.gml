@@ -1,14 +1,13 @@
 /// @description palette variables
 
 palettesurface = -1;
-global.currentpalette = 0;
+global.currentpalette = 5;
 global.fadeshift = 0;
 shader_palette_colblack = shader_get_uniform(sh_gb, "pal_colblack");
 shader_palette_coldgray = shader_get_uniform(sh_gb, "pal_coldgray");
 shader_palette_collgray = shader_get_uniform(sh_gb, "pal_collgray");
 shader_palette_colwhite = shader_get_uniform(sh_gb, "pal_colwhite");
 
-produce_a = 30.0;
 
 //produce
 palettearray[0][0] = 30.0/255.0;

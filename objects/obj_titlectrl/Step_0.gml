@@ -3,7 +3,7 @@
 // press start to start !
 if keyboard_check_pressed(global.startbutton)
 {
-	room = rm_game;
+	room = rm_playerinit;
 }
 
 // unused menu system before i asked for other opinions ><

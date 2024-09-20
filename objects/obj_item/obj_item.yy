@@ -35,5 +35,5 @@
     "name":"spr_item",
     "path":"sprites/spr_item/spr_item.yy",
   },
-  "visible":true,
+  "visible":false,
 }

@@ -1,11 +1,23 @@
 /// @description main player stuff
 
+
+if firstload
+{
+	x = 400;
+	y = 672;
+	camera_set_view_pos(view_camera[0],320,576);
+	firstload = false;
+}
+
 // debug commands for shifting palettes, remove later
-if keyboard_check_pressed(vk_space) show_debug_message(x);
-if keyboard_check_pressed(ord("T")) global.fadeshift -= 1;
-if keyboard_check_pressed(ord("Y")) global.fadeshift += 1;
-if keyboard_check_pressed(ord("G")) global.currentpalette -= 1;
-if keyboard_check_pressed(ord("H")) global.currentpalette += 1;
+if debugmode
+{
+	if keyboard_check_pressed(vk_space) show_debug_message(x);
+	if keyboard_check_pressed(ord("T")) global.fadeshift -= 1;
+	if keyboard_check_pressed(ord("Y")) global.fadeshift += 1;
+	if keyboard_check_pressed(ord("G")) global.currentpalette -= 1;
+	if keyboard_check_pressed(ord("H")) global.currentpalette += 1;
+}
 
 // check if hit a layer switcher
 if place_meeting(x,y,obj_layerswitch)
@@ -222,25 +234,34 @@ if !areatrans
 				camera_set_view_pos(view_camera[0],camera_get_view_x(view_camera[0]),camera_get_view_y(view_camera[0])+screentranspeedv);
 			}
 			
-			// check for items
+			// check for items and checkout
 			if keyboard_check_pressed(global.abutton)
 			{
 				if place_meeting(x,y,obj_item)
 				{
-					var _iteminst = instance_place(x,y,obj_item);
-					switch _iteminst.itemname
+					var _iteminst = instance_place(x,y,obj_item).itemname;
+					var _listcount = 0;
+					while _listcount < 12 and grocerylist[_listcount][0] != _iteminst
 					{
-						case "bread":
-							global.itembread = true;
-						break;
-						case "fishe":
-							global.itemfishe = true;
-						break;
-						case "melk":
-							global.itemmelk = true;
-						break;
+						_listcount += 1;
 					}
-					instance_destroy(_iteminst);
+					if _listcount < 12 grocerylist[_listcount][1] = true;
+				}
+				
+				if place_meeting(x,y,obj_checkout)
+				{
+					var _wincount = 0;
+					while _wincount < 12 and grocerylist[_wincount][1] == true
+					{
+						_wincount += 1;
+					}
+					if _wincount >= 12 checkedout = true;
+					
+					if debugmode
+					{
+						show_debug_message(_wincount);
+						if _wincount >= 12 show_debug_message("PP");
+					}
 				}
 			}
 			
@@ -252,6 +273,7 @@ if !areatrans
 				areatranspalette = _areatrans.areapalette;
 				areatransx = _areatrans.xlocation;
 				areatransy = _areatrans.ylocation;
+				areatransroom = _areatrans.arearoom;
 				playermoving = false;
 			}
 			
@@ -335,76 +357,93 @@ else
 		{
 			case 0: // fading out
 				global.fadeshift -= 1;
-				show_debug_message(0);
+				if debugmode show_debug_message(0);
 			break;
 			
 			case 1:
 				global.fadeshift -= 1;
-				show_debug_message(1);
+				if debugmode show_debug_message(1);
 			break;
 			
 			case 2:
 				global.fadeshift -= 1;
-				show_debug_message(2);
+				if debugmode show_debug_message(2);
 			break;
 			
 			case 3: // black frame
 				global.currentpalette = 3;
-				show_debug_message(3);
+				if debugmode show_debug_message(3);
 				// teleport player and camera
+				room = areatransroom;
 				x = areatransx;
 				y = areatransy;
-				camera_set_view_pos(view_camera[0],(floor(areatransx/160))*160,(floor(areatransy/144))*144);
 			break;
 			
 			case 4: // new palette
-				global.currentpalette = areatranspalette;
-				show_debug_message(4);
+				switch areatranspalette
+				{
+					case "produce":
+						global.currentpalette = 0;
+					break;
+					case "deli":
+						global.currentpalette = 1;
+					break;
+					case "freezer":
+						global.currentpalette = 2;
+					break;
+					case "storage":
+						global.currentpalette = 3;
+					break;
+					case "bakery":
+						global.currentpalette = 4;
+					break;
+					case "check":
+						global.currentpalette = 5;
+					break;
+					default:
+					break;
+				}
+				camera_set_view_pos(view_camera[0],(floor(areatransx/160))*160,(floor(areatransy/144))*144);
+				if debugmode show_debug_message(4);
 			break;
 			
 			case 5: // fade in
 				global.fadeshift += 1;
-				show_debug_message(5);
+				if debugmode show_debug_message(5);
 			break;
 			
 			case 6:
 				global.fadeshift += 1;
-				show_debug_message(6);
+				if debugmode show_debug_message(6);
 			break;
 			
 			case 7: // end
 				global.fadeshift += 1;
-				show_debug_message(7);
+				if debugmode show_debug_message(7);
 				areatranstimer = 0;
 				areatrans = false;
+			break;
+			
+			default:
 			break;
 		}
 	}
 }
 
-//unused hard cut screen transitions
-/*
-if x > camera_get_view_x(view_camera[0])+160
+if place_meeting(x,y,obj_behindswitch)
 {
-	camera_set_view_pos(view_camera[0],camera_get_view_x(view_camera[0])+160,camera_get_view_y(view_camera[0]));
-//	x += 8;
+	depth = 1000
+}
+else
+{
+	depth = 0;
 }
 
-if x < camera_get_view_x(view_camera[0])
+if place_meeting(x,y,obj_exit)
 {
-	camera_set_view_pos(view_camera[0],camera_get_view_x(view_camera[0])-160,camera_get_view_y(view_camera[0]));
-//	x -= 8;
+	if checkedout
+	{
+		room = rm_win;
+		instance_destroy(); // goodbye, world
+	}
 }
-
-if y > camera_get_view_y(view_camera[0])+144
-{
-	camera_set_view_pos(view_camera[0],camera_get_view_x(view_camera[0]),camera_get_view_y(view_camera[0])+144);
-//	y += 8;
-}
-
-if y < camera_get_view_y(view_camera[0])
-{
-	camera_set_view_pos(view_camera[0],camera_get_view_x(view_camera[0]),camera_get_view_y(view_camera[0])-144);
-//	y -= 8;
-}
-*/

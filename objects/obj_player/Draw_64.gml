@@ -2,7 +2,7 @@
 
 if debugmode
 {
-	draw_set_color(c_gray)
+	draw_set_color(c_black)
 
 	draw_text(0,0,x);
 	draw_text(0,20,y);
@@ -15,13 +15,16 @@ if debugmode
 
 	draw_text(150,0,controlarray[array_length(controlarray)-1]);
 	draw_text(150,20,array_length(controlarray));
-	//var _j
-	//while _j > array_length(controlarray)
 
 	draw_text(200,0,areatrans);
 	draw_text(200,20,(areatranstimer - 1));
 	
+	var _i = 0;
+	while _i < 12
+	{
+		draw_text(50,50+(_i*20),grocerylist[_i]);
+		_i += 1;
+	}
 	
-
 	draw_set_color(c_white)
 }
