@@ -1,7 +1,7 @@
 /// @description menuing
 
 // press start to start !
-if keyboard_check_pressed(global.startbutton)
+if (keyboard_check(vk_enter) or keyboard_check(vk_space) or keyboard_check(ord("Z")) or keyboard_check(ord("J")))
 {
 	room = rm_playerinit;
 }
