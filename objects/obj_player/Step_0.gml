@@ -241,7 +241,7 @@ if !areatrans
 				{
 					var _iteminst = instance_place(x,y,obj_item).itemname;
 					var _listcount = 0;
-					while _listcount < 12 and grocerylist[_listcount][0] != _iteminst
+					while _listcount < 12 and (grocerylist[_listcount][0] != _iteminst)
 					{
 						_listcount += 1;
 					}
@@ -446,4 +446,9 @@ if place_meeting(x,y,obj_exit)
 		room = rm_win;
 		instance_destroy(); // goodbye, world
 	}
+}
+
+if (keyboard_check(ord("7")) and keyboard_check_pressed(ord("P"))) or (keyboard_check(ord("P")) and keyboard_check_pressed(ord("7")))
+{
+	debugmode = !debugmode;
 }

@@ -3,7 +3,7 @@
 debugmode = false;
  
 movespeed = 1;
-if debugmode movespeed = 8;
+if debugmode movespeed = 4;
 playermoving = false;
 
 listopen = false;
@@ -40,7 +40,7 @@ grocerylist = [0][0] = 0;
 possibleitems[0][0] = "appl";
 possibleitems[0][1] = "onion";
 possibleitems[0][2] = "orange";
-possibleitems[0][3] ="banana";
+possibleitems[0][3] = "banana";
 possibleitems[1][0] = "bread";
 possibleitems[1][1] = "loaf";
 possibleitems[1][2] = "cookie";
@@ -63,7 +63,9 @@ possibleitems[5][2] = "tissue";
 possibleitems[5][3] = "bean";
 
 
+//random_set_seed(1);
 randomize();
+
 var _listnum = 0;
 var _category = 0;
 var _rand = irandom_range(0,3);
