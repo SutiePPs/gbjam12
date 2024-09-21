@@ -45,17 +45,18 @@ if place_meeting(x,y,obj_instateleport)
 
 // input stack
 var _trash
+
 // add inputs to stack
-if keyboard_check_pressed(global.leftbutton) array_push(controlarray,0);
-if keyboard_check_pressed(global.rightbutton) array_push(controlarray,1);
-if keyboard_check_pressed(global.upbutton) array_push(controlarray,2);
-if keyboard_check_pressed(global.downbutton) array_push(controlarray,3);
+if (keyboard_check_pressed(vk_left) or keyboard_check_pressed(ord("A"))) array_push(controlarray,0);
+if (keyboard_check_pressed(vk_right) or keyboard_check_pressed(ord("D"))) array_push(controlarray,1);
+if (keyboard_check_pressed(vk_up) or keyboard_check_pressed(ord("W"))) array_push(controlarray,2);
+if (keyboard_check_pressed(vk_down) or keyboard_check_pressed(ord("S"))) array_push(controlarray,3);
 
 // delete released inputs from top of stack
-if keyboard_check_released(global.leftbutton) and controlarray[array_length(controlarray)-1] == 0 _trash = array_pop(controlarray);
-if keyboard_check_released(global.rightbutton) and controlarray[array_length(controlarray)-1] == 1 _trash = array_pop(controlarray);
-if keyboard_check_released(global.upbutton) and controlarray[array_length(controlarray)-1] == 2 _trash = array_pop(controlarray);
-if keyboard_check_released(global.downbutton) and controlarray[array_length(controlarray)-1] == 3 _trash = array_pop(controlarray);
+if (keyboard_check_released(vk_left) or keyboard_check_released(ord("A"))) and controlarray[array_length(controlarray)-1] == 0 _trash = array_pop(controlarray);
+if (keyboard_check_released(vk_right) or keyboard_check_released(ord("D"))) and controlarray[array_length(controlarray)-1] == 1 _trash = array_pop(controlarray);
+if (keyboard_check_released(vk_up) or keyboard_check_released(ord("W"))) and controlarray[array_length(controlarray)-1] == 2 _trash = array_pop(controlarray);
+if (keyboard_check_released(vk_down) or keyboard_check_released(ord("S"))) and controlarray[array_length(controlarray)-1] == 3 _trash = array_pop(controlarray);
 
 
 // main controls
@@ -67,7 +68,7 @@ if !areatrans
 		if !listopen
 		{
 			// main movement controls, comments apply to all directions
-			if keyboard_check(global.leftbutton) and controlarray[array_length(controlarray)-1] == 0
+			if (keyboard_check(vk_left)or keyboard_check(ord("A"))) and controlarray[array_length(controlarray)-1] == 0
 			{
 				// store current sprite and mask to fall back on if unable to rotate
 				var _mask = mask_index;
@@ -105,7 +106,7 @@ if !areatrans
 				}
 			}
 
-			if keyboard_check(global.rightbutton) and controlarray[array_length(controlarray)-1] == 1
+			if (keyboard_check(vk_right) or keyboard_check(ord("D"))) and controlarray[array_length(controlarray)-1] == 1
 			{
 				var _mask = mask_index;
 				var _sprite = sprite_index;
@@ -138,7 +139,7 @@ if !areatrans
 				}
 			}
 
-			if keyboard_check(global.upbutton) and controlarray[array_length(controlarray)-1] == 2
+			if (keyboard_check(vk_up) or keyboard_check(ord("W"))) and controlarray[array_length(controlarray)-1] == 2
 			{
 				var _mask = mask_index;
 				var _sprite = sprite_index;
@@ -171,7 +172,7 @@ if !areatrans
 				}
 			}
 
-			if keyboard_check(global.downbutton) and controlarray[array_length(controlarray)-1] == 3
+			if (keyboard_check(vk_down) or keyboard_check(ord("S"))) and controlarray[array_length(controlarray)-1] == 3
 			{
 				var _mask = mask_index;
 				var _sprite = sprite_index;
@@ -235,7 +236,7 @@ if !areatrans
 			}
 			
 			// check for items and checkout
-			if keyboard_check_pressed(global.abutton)
+			if (keyboard_check_pressed(ord("Z")) or keyboard_check_pressed(ord("J")))
 			{
 				if place_meeting(x,y,obj_item)
 				{
